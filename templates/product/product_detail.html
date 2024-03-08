@@ -1,0 +1,32 @@
+{%extends 'components/navbar.html'%}
+{%load static%}
+{%block content%}
+<body>
+    <h1>hi</h1>
+    <div class="card" style="width: 18rem;">
+  {%if p.image%}
+            <img src=/media/{{p.image}} class="card-img-top" alt="...">
+            {%else%}
+                <img src= {% static 'none.png' %} class="card-img-top" alt="...">
+         {%endif%}
+  <div class="card-body">
+    <h5 class="card-title">{{p.title}}</h5>
+    <p class="card-text">{{p.content}}</p>
+      {%for c in p.category.all%}
+        <a href="#" class="btn btn-secondory">{{c.name}}</a>
+      {%endfor%}
+      <h5>Comments</h5>
+      {%for r in p.reviews.all%}
+        <p>{{r.sender}}</p>
+        <p>{{r.text}}</p>
+      {%endfor%}
+      <form action="/products/{{p.id}}/create_review/" method="post">
+    {%csrf_token%}
+    {{form}}
+    <button type="submit">Send review</button>
+</form>
+  </div>
+</div>
+</body>
+</html>
+{%endblock%}

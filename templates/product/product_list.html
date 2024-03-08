@@ -1,0 +1,34 @@
+{%extends 'components/navbar.html'%}
+{%load static%}
+{%block content%}
+<body>
+    <form action="" method="get">
+        <input type="text" name="search" placeholder="Search">
+        <input type="submit" value="Search">
+    </form>
+    <h1>hi</h1>
+    {%for p in products %}
+        <div class="card" style="width: 18rem;">
+         {%if p.image%}
+            <img src=/media/{{p.image}} class="card-img-top" alt="...">
+            {%else%}
+                <img src= {% static 'none.png' %} class="card-img-top" alt="...">
+         {%endif%}
+        <div class="card-body">
+
+        <h5 class="card-title">{{p.title}}</h5>
+            <p>{{p.owner}}</p>
+        <p class="card-text">{{p.content}}</p>
+        {%for c in p.category.all%}
+            <a href="#" class="btn btn-secondory">{{c.name}}</a>
+            {%endfor%}
+        <a href="products/{{p.id}}" class="btn btn-primary">View</a>
+        </div>
+        </div>
+    {% endfor %}
+    {%for i in pages%}
+        <a href="?page={{i}}" class="btn btn-primary">{{i}}</a>
+    {%endfor%}
+</body>
+</html>
+{%endblock%}
